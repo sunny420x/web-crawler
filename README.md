@@ -1,0 +1,1 @@
+-o [filename] to use costom output file.
