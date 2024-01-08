@@ -5,5 +5,6 @@
 </p>
 <h2>Option</h2>
 <p>
--o [filename] to use costom output file option.
+<b>-o [filename]</b> to use costom output file option.<br>
+<b>[url] -np</b> to not include origin URL (Show just path instead).
 </p>
