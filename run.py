@@ -17,6 +17,7 @@ def crawlpage(site):
 
 savefilename = 'output/links.txt' #Default Output File.
 no_prefix = False
+blank_link = 0
 
 WelcomeUI()
 print("-h to display lists of commands.\n")
@@ -45,23 +46,32 @@ elif(len(sys.argv) == 4):
     links = crawlpage(sys.argv[1])
 
 if(len(sys.argv) >= 2):
+    #Get domain name from input URL.
     site = sys.argv[1].split("/")
     site = site[2]
-    print(site)
+    
     file = open(savefilename, 'a')
     file.write("==== Crawing on "+sys.argv[1]+" ====\n")
 
     for link in links:
+        #Detect Internal/Local Path Link (No domain included in the link).
         if link[0] == "/":
             if(no_prefix == False):
                 file.write("https://"+site+link+"\n")
             else:
                 file.write(link+"\n")
-        else:
+        #Detect External Link like https://abc.
+        elif link[0] == "h":
             file.write(link+"\n")
+        #Detect and remove In-Page Link like abc.com/#menu .
+        elif link[0] == "#":
+            blank_link+=1
+        else:
+            file.write(site+"/"+link+"\n")
 
 
     file.write("==== End crawing on "+sys.argv[1]+" ====\n")
     file.write("\n")
     file.close()
     print("[+] Done crawing and data has been saved to: output/"+savefilename+"\n")
+    print("Founds: "+str(blank_link)+" blank link with #.")
