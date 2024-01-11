@@ -45,13 +45,16 @@ elif(len(sys.argv) == 4):
     links = crawlpage(sys.argv[1])
 
 if(len(sys.argv) >= 2):
+    site = sys.argv[1].split("/")
+    site = site[2]
+    print(site)
     file = open(savefilename, 'a')
     file.write("==== Crawing on "+sys.argv[1]+" ====\n")
 
     for link in links:
         if link[0] == "/":
             if(no_prefix == False):
-                file.write(sys.argv[1]+link+"\n")
+                file.write("https://"+site+link+"\n")
             else:
                 file.write(link+"\n")
         else:
